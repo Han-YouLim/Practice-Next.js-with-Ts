@@ -2,8 +2,57 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import utilStyles from '../styles/utils.module.css'
+import Link from 'next/link'
+import { getSortedPostsData } from '../lib/posts'
+//****Two Forms of Pre-rendering****
+//Static Generation is the pre-rendering method that generates the HTML at build time.
+// The pre-rendered HTML is then reused on each request.
+// Server-side Rendering is the pre-rendering method that generates the HTML on each request.
+//***Static Generation v.s. Server-side Rendering***
+//standard:  "Can I pre-render this page ahead of a user's request?"
+//            yes: Static Generation / no: Server-side Rendering
+// your page shows frequently updated data, and the page content changes on every request. you need to fetch data at request time instead of at build time=> Server-side Rendering
+//To use Server-side Rendering, you need to export getServerSideProps instead of getStaticProps from your page.
+// Static Generation => getStaticProps
+// Server-side Rendering => getServerSideProps
 
-const Home: NextPage = () => {
+//*** 언제 Client-side Rendering를 쓰면좋을까? ***
+//1. private, user-specific page,
+//2. SEO is not relevant,
+//3. and the page doesn’t need to be pre-rendered.
+//**SWR**
+//Next.js has created a React hook for data fetching called SWR
+//example usage of SWR
+//import useSWR from 'swr'
+// function Profile() {
+//   const { data, error } = useSWR('/api/user', fetch)
+//
+//   if (error) return <div>failed to load</div>
+//   if (!data) return <div>loading...</div>
+//   return <div>hello {data.name}!</div>
+// }
+
+//***getStaticProps Details***
+//getStaticProps only runs on the server-side.
+//It will never run on the client-side.
+//In development (npm run dev or yarn dev), getStaticProps runs on every request even for pages that use Static Generation.
+//
+// In production, getStaticProps runs at build time.
+// However, this behavior can be enhanced using the fallback key returned by getStaticPaths
+//getStaticProps can only be exported from a page.
+// You can’t export it from non-page files.
+
+export async function getStaticProps() {
+  const allPostsData:any = getSortedPostsData()
+  return {
+    props: {
+      allPostsData
+    }
+  }
+}
+
+const Home = ({ allPostsData }:any) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,15 +62,16 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
+        <h1 className="title">
+        Read{' '}
+        <Link href="/posts/first-post">
+          <a>this page!</a>
+        </Link>
+      </h1>
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
         </p>
-
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h2>Documentation &rarr;</h2>
@@ -51,6 +101,22 @@ const Home: NextPage = () => {
             </p>
           </a>
         </div>
+        {/* Add this <section> tag below the existing <section> tag */}
+        <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+          <h2 className={utilStyles.headingLg}>Blog</h2>
+          <ul className={utilStyles.list}>
+            {allPostsData.map(({ id, date, title }:any) => (
+                <li className={utilStyles.listItem} key={id}>
+                  {title}
+                  <br />
+                  {id}
+                  <br />
+                  {date}
+                  <br />
+                </li>
+            ))}
+          </ul>
+        </section>
       </main>
 
       <footer className={styles.footer}>
