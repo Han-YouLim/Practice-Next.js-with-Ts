@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import Date from '../components/date'
 import { getSortedPostsData } from '../lib/posts'
 //****Two Forms of Pre-rendering****
 //Static Generation is the pre-rendering method that generates the HTML at build time.
@@ -46,9 +47,7 @@ import { getSortedPostsData } from '../lib/posts'
 export async function getStaticProps() {
   const allPostsData:any = getSortedPostsData()
   return {
-    props: {
-      allPostsData
-    }
+    props: { allPostsData }
   }
 }
 
@@ -107,12 +106,13 @@ const Home = ({ allPostsData }:any) => {
           <ul className={utilStyles.list}>
             {allPostsData.map(({ id, date, title }:any) => (
                 <li className={utilStyles.listItem} key={id}>
-                  {title}
+                  <Link href={`/posts/${id}`}>
+                    <a>{title}</a>
+                  </Link>
                   <br />
-                  {id}
-                  <br />
-                  {date}
-                  <br />
+                  <small className={utilStyles.lightText}>
+                    <Date dateString={date} />
+                  </small>
                 </li>
             ))}
           </ul>
@@ -120,16 +120,9 @@ const Home = ({ allPostsData }:any) => {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
+        <h5 style={{color:"#ffb9b9"}}>
+          Powered by yourim
+        </h5>
       </footer>
     </div>
   )
