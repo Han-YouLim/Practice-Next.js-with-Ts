@@ -62,11 +62,11 @@ const Home = ({ allPostsData }:any) => {
 
       <main className={styles.main}>
         <h1 className="title">
-        Read{' '}
-        <Link href="/posts/first-post">
+        Login{' '}
+        <Link href="/sign/in">
           <a>this page!</a>
         </Link>
-      </h1>
+        </h1>
         <p className={styles.description}>
           Get started by editing{' '}
           <code className={styles.code}>pages/index.tsx</code>
