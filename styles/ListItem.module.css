@@ -1,0 +1,35 @@
+.itemDataBox{
+    border: 1px solid #eaeaea;
+    padding: 16px;
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    text-decoration: none;
+    text-align: center;
+    margin-bottom: 16px;
+    height: 280px;
+}
+.itemDataBox:hover{
+    border-color: #0070f3;
+}
+.img_item {
+    display: flex;
+    margin: 0 auto;
+}
+.tit_item {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    width: 160px;
+    margin: 10px auto;
+}
+.txt_info{
+    display: block;
+    margin-bottom: 10px;
+    color: #999;
+    text-align: center;
+}
+.num_price{
+    font-size: 17px;
+    color: #0070f3;
+    font-weight: bold;
+}

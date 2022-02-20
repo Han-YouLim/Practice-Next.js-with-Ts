@@ -2,9 +2,9 @@
 import Layout from '../../components/layout'
 import Head from 'next/head'
 import styles from '../../styles/login.module.css'
-import utilStyles from '../styles/utils.module.css'
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import Link from "next/link";
 
 export default function SignIn() {
     const [isLogin, setIsLogin] = useState("fail")
@@ -33,12 +33,12 @@ export default function SignIn() {
 
     console.log("SignIn")
     return (
-        <Layout>
+        <div className={styles.container}>
             <Head>
                 <title>Yourim Next.js Signin</title>
             </Head>
             <br/>
-            <div style={{textAlign:"center"}}>
+            <div style={{textAlign:"center", padding: "10px"}}>
                 <h1 className="title">
                     Login
                 </h1>
@@ -49,8 +49,15 @@ export default function SignIn() {
                 <button className={styles.loginButton} onClick={doLogin}>
                     로그인
                 </button>
+
+                <div className={styles.backToHome}>
+                    <Link href="/">
+                        <a>← Back to home</a>
+                    </Link>
+                </div>
+                <br/> <br/> <br/>
             </div>
 
-        </Layout>
+        </div>
     )
 }

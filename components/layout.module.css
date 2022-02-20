@@ -19,8 +19,30 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eaeaea;
 }
 
 .backToHome {
     margin: 3rem 0 0;
+}
+
+.login{
+    padding: 8px;
+    border-radius: 10px;
+    width: 140px;
+    text-align: center;
+    border: 1px solid #ffffff;
+    margin: 8px;
+}
+.loginText{
+    color: #666666;
+}
+
+.login:hover{
+    color: #0070f3;
+    border-color: #0070f3;
+}
+.loginText:hover{
+    color: #0070f3;
 }
