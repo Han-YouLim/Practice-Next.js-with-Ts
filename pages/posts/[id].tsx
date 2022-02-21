@@ -1,7 +1,7 @@
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout'
 import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head'
-import Date from '../../components/date'
+import Date from '../../components/Date'
 import utilStyles from '../../styles/utils.module.css'
 
 //You should use getStaticPaths if you're statically pre-rendering pages that use dynamic routes and:
@@ -26,7 +26,7 @@ export async function getStaticProps({ params }:any ) {
         props: { postData }
     }
 }
-
+//타입만들어주기
 export default function Post({ postData }: any) {
     console.log("Post " + JSON.stringify(postData.id))
     return (

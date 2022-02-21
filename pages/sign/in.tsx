@@ -1,5 +1,5 @@
 //로그인
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout'
 import Head from 'next/head'
 import styles from '../../styles/login.module.css'
 import {useEffect, useState} from "react";
