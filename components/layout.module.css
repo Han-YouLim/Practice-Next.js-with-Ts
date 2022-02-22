@@ -30,7 +30,7 @@
 .login{
     padding: 8px;
     border-radius: 10px;
-    width: 140px;
+    width: 80px;
     text-align: center;
     border: 1px solid #ffffff;
     margin: 8px;
@@ -42,7 +42,9 @@
 .login:hover{
     color: #0070f3;
     border-color: #0070f3;
+    cursor: pointer;
 }
 .loginText:hover{
     color: #0070f3;
+    cursor: pointer;
 }

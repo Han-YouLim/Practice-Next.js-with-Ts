@@ -8,7 +8,7 @@ import { getSortedPostsData } from '../lib/posts'
 import axios, {Axios} from "axios";
 import {useEffect, useState} from "react";
 import ItemList from "../components/ItemList";
-import {Divider} from "semantic-ui-react";
+import {Divider, Loader} from "semantic-ui-react";
 //****Two Forms of Pre-rendering****
 //Static Generation is the pre-rendering method that generates the HTML at build time.
 // The pre-rendered HTML is then reused on each request.
@@ -60,19 +60,22 @@ export async function getStaticProps() {
 }
 
 const Home = ({ allPostsData }:any) => {
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+
   const API_URL =
-      "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
+      "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline";
   async function getData(){
-    const res = await fetch(API_URL)
-    return res.json()
+    const res = await fetch(API_URL);
+    setLoading(false);
+    return res.json();
   }
 
   useEffect(() => {
     getData()
         .then(res => {
-          setList(res)
-          console.log(JSON.stringify(list))
+          setList(res);
+          console.log(JSON.stringify(list));
         }
     )
   },[])
@@ -83,63 +86,33 @@ const Home = ({ allPostsData }:any) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
         <main className={styles.main}>
-        {/*<p className={styles.description}>*/}
-        {/*  Get started by editing{' '}*/}
-        {/*  <code className={styles.code}>pages/index.tsx</code>*/}
-        {/*</p>*/}
         <h1><section style={{color:"red"}}>Best</section></h1>
             <hr className={styles.solid}></hr>
-        <ItemList list ={list.slice(0, 9)} />
+            {
+                isLoading ? (
+                    <div style={{padding: "300px 0"}}>
+                        <Loader inline="centered" active>
+                            Loading
+                        </Loader>
+                    </div>
+                ):(
+                    <ItemList list ={list.slice(0, 9)} />
+                )
+            }
             <h1><section style={{color:"red"}}>New</section></h1>
             <hr className={styles.solid}></hr>
-            <ItemList list={list.slice(9)} />
+            {
+                isLoading ? (
+                    <div style={{padding: "300px 0"}}>
+                        <Loader inline="centered" active>
+                            Loading
+                        </Loader>
+                    </div>
+                ):(
+                    <ItemList list={list.slice(9)} />
+                )
+            }
 
-        {/*<div className={styles.grid}>*/}
-        {/*  <a href="https://nextjs.org/docs" className={styles.card}>*/}
-        {/*    <h2>Documentation &rarr;</h2>*/}
-        {/*    <p>Find in-depth information about Next.js features and API.</p>*/}
-        {/*  </a>*/}
-
-        {/*  <a href="https://nextjs.org/learn" className={styles.card}>*/}
-        {/*    <h2>Learn &rarr;</h2>*/}
-        {/*    <p>Learn about Next.js in an interactive course with quizzes!</p>*/}
-        {/*  </a>*/}
-
-        {/*  <a*/}
-        {/*    href="https://github.com/vercel/next.js/tree/canary/examples"*/}
-        {/*    className={styles.card}*/}
-        {/*  >*/}
-        {/*    <h2>Examples &rarr;</h2>*/}
-        {/*    <p>Discover and deploy boilerplate example Next.js projects.</p>*/}
-        {/*  </a>*/}
-
-        {/*  <a*/}
-        {/*    href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"*/}
-        {/*    className={styles.card}*/}
-        {/*  >*/}
-        {/*    <h2>Deploy &rarr;</h2>*/}
-        {/*    <p>*/}
-        {/*      Instantly deploy your Next.js site to a public URL with Vercel.*/}
-        {/*    </p>*/}
-        {/*  </a>*/}
-        {/*</div>*/}
-        {/* Add this <section> tag below the existing <section> tag */}
-        {/*<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>*/}
-        {/*  <h2 className={utilStyles.headingLg}>Blog</h2>*/}
-        {/*  <ul className={utilStyles.list}>*/}
-        {/*    {allPostsData.map(({ id, date, title }:any) => (*/}
-        {/*        <li className={utilStyles.listItem} key={id}>*/}
-        {/*          <Link href={`/posts/${id}`}>*/}
-        {/*            <a>{title}</a>*/}
-        {/*          </Link>*/}
-        {/*          <br />*/}
-        {/*          <small className={utilStyles.lightText}>*/}
-        {/*            <Date dateString={date} />*/}
-        {/*          </small>*/}
-        {/*        </li>*/}
-        {/*    ))}*/}
-        {/*  </ul>*/}
-        {/*</section>*/}
       </main>
     </div>
   )

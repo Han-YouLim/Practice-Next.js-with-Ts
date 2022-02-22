@@ -10,11 +10,11 @@ export default function Top () {
             <div className={styles.login}>
                 <Link href="/sign/in">
                     <h5>
-                    <a className={styles.loginText}>Login at
-                    this page</a>
+                    <a className={styles.loginText}>Login</a>
                     </h5>
                 </Link>
         </div>
+            <Link href="/">
             <header className={styles.header}>
             <Image
                 priority
@@ -24,10 +24,9 @@ export default function Top () {
                 width={100}
                 alt="jerry"
             />
-            <h1 className={utilStyles.heading2Xl}>JERRY Marcket</h1>
-
+            <h1 className={utilStyles.heading2Xl}>JERRY <span style={{color:"#0070f3", fontSize:"48px"}}>M</span>arcket</h1>
         </header>
-
+            </Link>
         </>
 
     )

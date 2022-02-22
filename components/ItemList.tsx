@@ -28,13 +28,13 @@ const ItemList:React.FC<itemListProps>=({list}) =>{
                             <Grid.Column key={item.id}>
                                 <Link href={`./item/${item.id}`}>
                                 <div className={styles.itemDataBox}>
-                                    <Image className={styles.img_item} src={item.image_link} height={100}
-                                           width={100} alt={item.name} />
-                                    <strong className={styles.tit_item}>{item.name}</strong>
-                                    <span className={styles.txt_info}>
-                                        {item.category} {item.product_type}
+                                    <Image className={styles.img_list_item} src={item.image_link} height={140}
+                                           width={150} alt={item.name} />
+                                    <strong className={styles.tit_list_item}>{item.name}</strong>
+                                    <span className={styles.txt_list_info}>
+                                        {item.category? (item.category):(item.product_type)}
                                     </span>
-                                    <strong className={styles.num_price}>$ {item.price}</strong>
+                                    <strong className={styles.num_price}>${item.price}</strong>
                                 </div>
                                 </Link>
                             </Grid.Column>
