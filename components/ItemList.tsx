@@ -2,19 +2,13 @@ import { Grid, Image } from 'semantic-ui-react'
 import styles from "../styles/ListItem.module.css";
 import Link from 'next/link'
 import React from "react";
-interface Seller {
 
-}
 type item = {
     name ?: string;  // FunctionComponent.
     category ?: string;
     price ?: number;
-    seller : Seller;
 }
 
-// interface itemList extends Array <item>{
-//
-// }
 type itemListProps = {
     list:item[]
 }

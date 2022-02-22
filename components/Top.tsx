@@ -3,6 +3,7 @@ import utilStyles from "../styles/utils.module.css";
 import Head from 'next/head'
 import styles from './layout.module.css'
 import Link from "next/link";
+import Gnb from "./Gnb"
 
 export default function Top () {
     return (
@@ -25,8 +26,9 @@ export default function Top () {
                 alt="jerry"
             />
             <h1 className={utilStyles.heading2Xl}>JERRY <span style={{color:"#0070f3", fontSize:"48px"}}>M</span>arcket</h1>
-        </header>
+            </header>
             </Link>
+            <Gnb />
         </>
 
     )

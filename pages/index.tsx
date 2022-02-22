@@ -6,7 +6,7 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import { getSortedPostsData } from '../lib/posts'
 import axios, {Axios} from "axios";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import ItemList from "../components/ItemList";
 import {Divider, Loader} from "semantic-ui-react";
 //****Two Forms of Pre-rendering****
@@ -51,34 +51,24 @@ type item = {
     category ?: string;
     price ?: number;
 }
+type itemListProps = {
+    list:item[]
+}
 
 export async function getStaticProps() {
-  const allPostsData:any = getSortedPostsData()
+  const allPostsData:any = getSortedPostsData();
+  const API_URL =
+        "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline";
+  const res = await fetch(API_URL);
+    const data = await res.json()
   return {
-    props: { allPostsData }
+    props: {
+        list: data
+    }
   }
 }
 
-const Home = ({ allPostsData }:any) => {
-  const [list, setList] = useState([]);
-  const [isLoading, setLoading] = useState(true);
-
-  const API_URL =
-      "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline";
-  async function getData(){
-    const res = await fetch(API_URL);
-    setLoading(false);
-    return res.json();
-  }
-
-  useEffect(() => {
-    getData()
-        .then(res => {
-          setList(res);
-          console.log(JSON.stringify(list));
-        }
-    )
-  },[])
+const Home:React.FC<itemListProps> = ({ list }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -88,31 +78,10 @@ const Home = ({ allPostsData }:any) => {
         <main className={styles.main}>
         <h1><section style={{color:"red"}}>Best</section></h1>
             <hr className={styles.solid}></hr>
-            {
-                isLoading ? (
-                    <div style={{padding: "300px 0"}}>
-                        <Loader inline="centered" active>
-                            Loading
-                        </Loader>
-                    </div>
-                ):(
-                    <ItemList list ={list.slice(0, 9)} />
-                )
-            }
+            <ItemList list ={list.slice(0, 9)} />
             <h1><section style={{color:"red"}}>New</section></h1>
             <hr className={styles.solid}></hr>
-            {
-                isLoading ? (
-                    <div style={{padding: "300px 0"}}>
-                        <Loader inline="centered" active>
-                            Loading
-                        </Loader>
-                    </div>
-                ):(
-                    <ItemList list={list.slice(9)} />
-                )
-            }
-
+            <ItemList list={list.slice(9)} />
       </main>
     </div>
   )
